@@ -1,0 +1,45 @@
+<div class="laptop-card" *ngIf="laptop">
+  <div class="card-image">
+    <img [src]="mainImage" [alt]="laptop.name" />
+    <div class="stock-badge" [class.in-stock]="laptop.inStock" [class.out-of-stock]="!laptop.inStock">
+      {{ laptop.inStock ? 'In Stock' : 'Out of Stock' }}
+    </div>
+  </div>
+  
+  <div class="card-content">
+    <div class="laptop-header">
+      <h3 class="laptop-name">{{ laptop.name }}</h3>
+      <div class="brand-model">
+        <span class="brand">{{ laptop.brand }}</span> - 
+        <span class="model">{{ laptop.model }}</span>
+      </div>
+    </div>
+    
+    <p class="description">{{ laptop.description }}</p>
+    
+    <div class="specifications">
+      <div class="spec-item">
+        <strong>Processor:</strong> {{ laptop.specifications.processor }}
+      </div>
+      <div class="spec-item">
+        <strong>Memory:</strong> {{ laptop.specifications.memory }}
+      </div>
+      <div class="spec-item">
+        <strong>Storage:</strong> {{ laptop.specifications.storage }}
+      </div>
+    </div>
+    
+    <div class="card-footer">
+      <div class="price">
+        <span class="amount">{{ laptop.price | currency:laptop.currency }}</span>
+      </div>
+      <button 
+        class="add-to-cart-btn" 
+        [class.added]="addedToCart"
+        [disabled]="!laptop.inStock"
+        (click)="addToCart()">
+        {{ buttonText }}
+      </button>
+    </div>
+  </div>
+</div>

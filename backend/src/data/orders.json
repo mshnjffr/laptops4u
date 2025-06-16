@@ -1,0 +1,54 @@
+[
+  {
+    "orderId": "ORD-1750097285293-704",
+    "orderDate": "2025-06-16T18:08:05.293Z",
+    "items": [
+      {
+        "laptopId": "macbook-pro-14-m4",
+        "quantity": 1,
+        "price": 1999
+      }
+    ],
+    "totalAmount": 1999,
+    "status": "confirmed"
+  },
+  {
+    "orderId": "ORD-1750098497866-756",
+    "orderDate": "2025-06-16T18:28:17.866Z",
+    "items": [
+      {
+        "laptopId": "macbook-pro-14-m4",
+        "quantity": 1,
+        "price": 1999
+      }
+    ],
+    "totalAmount": 1999,
+    "status": "confirmed"
+  },
+  {
+    "orderId": "ORD-1750099004124-712",
+    "orderDate": "2025-06-16T18:36:44.124Z",
+    "items": [
+      {
+        "laptopId": "macbook-pro-14-m4",
+        "quantity": 1,
+        "price": 1999
+      }
+    ],
+    "totalAmount": 1999,
+    "status": "confirmed"
+  },
+  {
+    "orderId": "ORD-1750100548909-200",
+    "orderDate": "2025-06-16T19:02:28.909Z",
+    "items": [
+      {
+        "laptopId": "dell-xps-15-2024",
+        "quantity": 1,
+        "price": 1799
+      }
+    ],
+    "totalAmount": 1799,
+    "status": "confirmed"
+  }
+]

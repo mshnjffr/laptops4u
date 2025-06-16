@@ -1,0 +1,107 @@
+<div class="exercises-container">
+
+
+  <!-- Exercise Cards -->
+  <div class="exercises-grid">
+    <div 
+      *ngFor="let exercise of filteredExercises; trackBy: trackByExerciseId" 
+      class="exercise-card"
+      [class.completed]="exercise.completed">
+      
+      <div class="card-header" (click)="toggleExercise(exercise.id)">
+        <h3 class="exercise-title">{{ exercise.title }}</h3>
+        <span class="expand-icon" [class.expanded]="isExpanded(exercise.id)">
+          ▼
+        </span>
+      </div>
+      
+      <div class="exercise-content" *ngIf="isExpanded(exercise.id)">
+        <div class="description-section">
+          <p>When working with unfamiliar codebases, understanding the architecture and data flow is crucial for productive development. This helps you:</p>
+          <ul>
+            <li><strong>Navigate efficiently</strong> - Know where to find specific functionality</li>
+            <li><strong>Make informed changes</strong> - Understand impact and dependencies</li>
+            <li><strong>Debug effectively</strong> - Trace issues through the system</li>
+            <li><strong>Follow patterns</strong> - Maintain consistency with existing code</li>
+            <li><strong>Avoid breaking changes</strong> - Respect established contracts and interfaces</li>
+          </ul>
+        </div>
+
+        <div class="files-section">
+          <h4>🗂️ Key Files to Review with Cody:</h4>
+          <div class="file-categories">
+            <div class="category">
+              <strong>Frontend Architecture:</strong>
+              <span class="file-path">frontend/src/app/app.routes.ts</span>
+              <span class="file-path">frontend/src/app/app.component.ts</span>
+              <span class="file-path">frontend/src/app/components/laptop-list/laptop-list.component.ts</span>
+            </div>
+            <div class="category">
+              <strong>Services & Data:</strong>
+              <span class="file-path">frontend/src/app/services/laptop.service.ts</span>
+              <span class="file-path">frontend/src/app/services/cart.service.ts</span>
+              <span class="file-path">frontend/src/app/models/laptop.model.ts</span>
+            </div>
+            <div class="category">
+              <strong>Backend API:</strong>
+              <span class="file-path">backend/src/app.js</span>
+              <span class="file-path">backend/src/routes/laptops.js</span>
+              <span class="file-path">backend/src/data/laptops.json</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prompts-section">
+          <h4>💡 Example Prompts for Cody:</h4>
+          <div class="prompt-categories">
+            <div class="prompt-category">
+              <strong>Architecture Overview:</strong>
+              <span class="prompt-text">"Review these files: frontend/src/app/app.routes.ts, frontend/src/app/app.component.ts, frontend/src/app/app.component.html, frontend/src/app/services/cart.service.ts. Explain how Angular routing works, including RouterOutlet/RouterLink usage, cart service integration, and standalone component architecture."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Data Flow:</strong>
+              <span class="prompt-text">"Analyze these files: frontend/src/app/services/laptop.service.ts, frontend/src/app/services/cart.service.ts, frontend/src/app/models/laptop.model.ts, frontend/src/app/models/cart-item.model.ts. Trace data flow from laptop service through cart service including initialization, localStorage persistence, and BehaviorSubject patterns."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>API Integration:</strong>
+              <span class="prompt-text">"Compare these files: backend/src/routes/laptops.js, backend/src/models/laptop.model.js, frontend/src/app/services/laptop.service.ts, backend/src/app.js. Show frontend-backend connection, API endpoints, error handling, and CORS configuration."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Component Structure:</strong>
+              <span class="prompt-text">"Review these files: frontend/src/app/components/laptop-list/laptop-list.component.ts, frontend/src/app/components/laptop-list/laptop-list.component.html, frontend/src/app/components/laptop-card/laptop-card.component.ts, frontend/src/app/services/laptop.service.ts. Explain Angular component data patterns including standalone imports, Observable subscriptions, and template binding."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Data Models:</strong>
+              <span class="prompt-text">"Examine these files: frontend/src/app/models/laptop.model.ts, frontend/src/app/models/cart-item.model.ts, backend/src/data/laptops.json, backend/src/models/laptop.model.js. Analyze complete data structure, TypeScript interfaces, and schema consistency across frontend/backend."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-actions">
+        <button 
+          class="complete-btn"
+          [class.completed]="exercise.completed"
+          (click)="toggleComplete(exercise)">
+          <span *ngIf="!exercise.completed">Mark as Complete</span>
+          <span *ngIf="exercise.completed">✓ Completed</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredExercises.length === 0" class="empty-state">
+    <div class="empty-content">
+      <h3>No exercises found</h3>
+      <p>Try adjusting your search or filter criteria</p>
+      <button 
+        class="reset-btn" 
+        (click)="selectedDifficulty = 'All'; searchTerm = ''; filterExercises()">
+        Clear Filters
+      </button>
+    </div>
+  </div>
+
+
+</div>

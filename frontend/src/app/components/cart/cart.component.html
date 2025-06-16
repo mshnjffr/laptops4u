@@ -1,0 +1,37 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h1>Shopping Cart</h1>
+  </div>
+
+  <div *ngIf="cartSummary.items.length === 0" class="empty-cart">
+    <p>Your cart is empty</p>
+    <a routerLink="/" class="continue-shopping">Continue Shopping</a>
+  </div>
+
+  <div *ngIf="cartSummary.items.length > 0" class="cart-content">
+    <div class="cart-items">
+      <app-cart-item 
+        *ngFor="let item of cartSummary.items; trackBy: trackByItemId" 
+        [cartItem]="item">
+      </app-cart-item>
+    </div>
+
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Total Items:</span>
+        <span>{{ cartSummary.totalItems }}</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total Amount:</span>
+        <span>{{ cartSummary.totalAmount | currency:'USD' }}</span>
+      </div>
+      
+      <button 
+        class="place-order-btn"
+        [disabled]="placing"
+        (click)="placeOrder()">
+        {{ placing ? 'Placing Order...' : 'Place Order' }}
+      </button>
+    </div>
+  </div>
+</div>

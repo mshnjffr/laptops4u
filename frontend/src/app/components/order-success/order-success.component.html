@@ -1,0 +1,86 @@
+<div class="order-success-container">
+  <div class="success-content">
+    <div class="success-icon">
+      ✅
+    </div>
+    
+    <h1>Order Placed Successfully!</h1>
+    
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading">
+      <p>Loading order details...</p>
+    </div>
+    
+    <!-- Error state -->
+    <div *ngIf="error && !loading" class="error">
+      <p>Unable to load order details. Please contact customer support.</p>
+      <div *ngIf="orderId" class="order-id">
+        <strong>Order ID: {{ orderId }}</strong>
+      </div>
+    </div>
+    
+    <!-- Order details when loaded -->
+    <div *ngIf="order && !loading && !error" class="order-details">
+      <p>Your order has been placed successfully and is confirmed!</p>
+      
+      <div class="order-summary">
+        <div class="order-info">
+          <div class="order-id">
+            <strong>Order ID: {{ order.orderId }}</strong>
+          </div>
+          <div class="order-date">
+            <strong>Order Date: {{ formatDate(order.orderDate) }}</strong>
+          </div>
+          <div class="order-status">
+            <strong>Status: {{ order.status | titlecase }}</strong>
+          </div>
+        </div>
+
+        <div class="ordered-items">
+          <h3>Ordered Items:</h3>
+          <div class="items-list">
+            <div *ngFor="let item of orderItems" class="order-item">
+              <div class="item-image">
+                <img [src]="item.laptop.images[0] || 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop&crop=center'" [alt]="item.laptop.name" />
+              </div>
+              <div class="item-details">
+                <h4>{{ item.laptop.name }}</h4>
+                <p class="item-specs">{{ item.laptop.specifications.processor }} | {{ item.laptop.specifications.memory }} | {{ item.laptop.specifications.storage }}</p>
+                <p class="item-price">{{ item.price | currency }}</p>
+                <p class="item-quantity">Quantity: {{ item.quantity }}</p>
+                <p class="item-total"><strong>Subtotal: {{ (item.price * item.quantity) | currency }}</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-total">
+          <h3>Total Amount: {{ order.totalAmount | currency }}</h3>
+        </div>
+      </div>
+      
+      <p class="confirmation-note">You will receive a confirmation email shortly.</p>
+    </div>
+    
+    <!-- Fallback when orderId exists but no order details -->
+    <div *ngIf="orderId && !order && !loading && !error" class="basic-confirmation">
+      <p>Your order has been placed successfully.</p>
+      <div class="order-id">
+        <strong>Order ID: {{ orderId }}</strong>
+      </div>
+      <p>You will receive a confirmation email shortly.</p>
+    </div>
+    
+    <!-- No order ID provided -->
+    <div *ngIf="!orderId && !loading" class="no-order-id">
+      <p>Your order has been placed successfully!</p>
+      <p>Please check your email for order confirmation details.</p>
+    </div>
+    
+    <div class="actions">
+      <a routerLink="/" class="continue-shopping-btn">
+        Continue Shopping
+      </a>
+    </div>
+  </div>
+</div>

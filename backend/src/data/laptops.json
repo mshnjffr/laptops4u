@@ -1,0 +1,122 @@
+[
+  {
+    "id": "macbook-pro-14-m4",
+    "name": "MacBook Pro 14\" M4",
+    "brand": "Apple",
+    "model": "MacBook Pro 14-inch (M4, 2024)",
+    "price": 1999,
+    "currency": "USD",
+    "description": "The most advanced MacBook Pro ever, featuring the revolutionary M4 chip that delivers exceptional performance and all-day battery life. Perfect for creative professionals and power users who demand the best.",
+    "specifications": {
+      "processor": "Apple M4 chip with 10-core CPU and 10-core GPU",
+      "memory": "16GB unified memory",
+      "storage": "512GB SSD",
+      "display": "14.2-inch Liquid Retina XDR display (3024x1964)",
+      "graphics": "10-core GPU",
+      "os": "macOS Sequoia"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=600&fit=crop&crop=center"
+    ],
+    "inStock": true,
+    "category": "Premium"
+  },
+  {
+    "id": "dell-xps-15-2024",
+    "name": "Dell XPS 15 (2024)",
+    "brand": "Dell",
+    "model": "XPS 15 9530 (2024)",
+    "price": 1799,
+    "currency": "USD",
+    "description": "Premium laptop with stunning OLED display and powerful Intel performance. Ideal for content creators and professionals who need exceptional visual quality and robust computing power.",
+    "specifications": {
+      "processor": "Intel Core i7-13700H (14-core, up to 5.0 GHz)",
+      "memory": "16GB DDR5-4800",
+      "storage": "1TB NVMe SSD",
+      "display": "15.6-inch OLED 4K UHD+ (3840x2400) touchscreen",
+      "graphics": "NVIDIA GeForce RTX 4060 8GB GDDR6",
+      "os": "Windows 11 Home"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=600&fit=crop&crop=center"
+    ],
+    "inStock": true,
+    "category": "Premium"
+  },
+  {
+    "id": "lenovo-thinkpad-x1-carbon-gen12",
+    "name": "Lenovo ThinkPad X1 Carbon Gen 12",
+    "brand": "Lenovo",
+    "model": "ThinkPad X1 Carbon Gen 12 (2024)",
+    "price": 1649,
+    "currency": "USD",
+    "description": "Ultra-lightweight business laptop with legendary ThinkPad reliability. Perfect for professionals who need maximum portability without compromising on performance and security features.",
+    "specifications": {
+      "processor": "Intel Core i7-1365U (10-core, up to 5.2 GHz)",
+      "memory": "16GB LPDDR5-6400",
+      "storage": "512GB NVMe SSD",
+      "display": "14-inch WUXGA (1920x1200) IPS anti-glare",
+      "graphics": "Intel Iris Xe Graphics",
+      "os": "Windows 11 Pro"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=600&fit=crop&crop=center"
+    ],
+    "inStock": true,
+    "category": "Business"
+  },
+  {
+    "id": "asus-zenbook-s16-2024",
+    "name": "ASUS ZenBook S16 (2024)",
+    "brand": "ASUS",
+    "model": "ZenBook S16 OLED UM5606WA (2024)",
+    "price": 1399,
+    "currency": "USD",
+    "description": "Stunning 16-inch OLED laptop powered by AMD Ryzen processor. Combines elegant design with powerful performance, making it perfect for creative work and entertainment.",
+    "specifications": {
+      "processor": "AMD Ryzen 7 8845HS (8-core, up to 5.1 GHz)",
+      "memory": "16GB DDR5-5600",
+      "storage": "1TB NVMe SSD",
+      "display": "16-inch OLED 3K (2880x1800) touchscreen",
+      "graphics": "AMD Radeon 780M integrated graphics",
+      "os": "Windows 11 Home"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=600&fit=crop&crop=center"
+    ],
+    "inStock": true,
+    "category": "Creative"
+  },
+  {
+    "id": "hp-spectre-x360-14",
+    "name": "HP Spectre x360 14\"",
+    "brand": "HP",
+    "model": "Spectre x360 14-eu0023dx (2024)",
+    "price": 1299,
+    "currency": "USD",
+    "description": "Versatile 2-in-1 convertible laptop with premium build quality and OLED display. Perfect for users who want the flexibility of a laptop and tablet in one elegant device.",
+    "specifications": {
+      "processor": "Intel Core i7-1355U (10-core, up to 5.0 GHz)",
+      "memory": "16GB LPDDR5-6400",
+      "storage": "512GB NVMe SSD",
+      "display": "14-inch OLED 2.8K (2880x1800) touchscreen, 400 nits",
+      "graphics": "Intel Iris Xe Graphics",
+      "os": "Windows 11 Home"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=800&h=600&fit=crop&crop=center",
+      "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=800&h=600&fit=crop&crop=center"
+    ],
+    "inStock": true,
+    "category": "Convertible"
+  }
+]

@@ -1,0 +1,37 @@
+<div class="cart-item" *ngIf="cartItem">
+  <div class="item-image">
+    <img [src]="cartItem.laptop.images[0] || 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop&crop=center'" 
+         [alt]="cartItem.laptop.name">
+  </div>
+  
+  <div class="item-details">
+    <h4 class="item-name">{{ cartItem.laptop.name }}</h4>
+    <p class="item-brand">{{ cartItem.laptop.brand }} - {{ cartItem.laptop.model }}</p>
+    <p class="item-price">{{ cartItem.laptop.price | currency:cartItem.laptop.currency }}</p>
+  </div>
+  
+  <div class="quantity-controls">
+    <button 
+      class="quantity-btn" 
+      (click)="updateQuantity(cartItem.quantity - 1)"
+      [disabled]="cartItem.quantity <= 1">
+      -
+    </button>
+    <span class="quantity">{{ cartItem.quantity }}</span>
+    <button 
+      class="quantity-btn" 
+      (click)="updateQuantity(cartItem.quantity + 1)">
+      +
+    </button>
+  </div>
+  
+  <div class="item-subtotal">
+    <span class="subtotal-amount">{{ subtotal | currency:cartItem.laptop.currency }}</span>
+  </div>
+  
+  <div class="item-actions">
+    <button class="remove-btn" (click)="removeItem()">
+      Remove
+    </button>
+  </div>
+</div>

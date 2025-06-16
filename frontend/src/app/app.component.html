@@ -1,0 +1,22 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <a routerLink="/" class="brand-link">
+        <h1>Laptops4U</h1>
+      </a>
+    </div>
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/laptops" routerLinkActive="active">Laptops</a>
+      <a routerLink="/exercises" routerLinkActive="active">Exercises</a>
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        Cart
+        <span class="cart-count" *ngIf="cartItemCount > 0">({{ cartItemCount }})</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<main class="main-content">
+  <router-outlet />
+</main>
