@@ -33,6 +33,15 @@ interface OrderStats {
   templateUrl: './orders-debug.component.html',
   styleUrl: './orders-debug.component.scss'
 })
+/**
+ * OrdersDebugComponent - Contains 5 intentional bugs for Cody AI debugging practice
+ * 
+ * Bug 1: Missing error handling in loadOrders() method
+ * Bug 2: Unsafe property access to customerInfo.name (runtime error risk)
+ * Bug 3: Missing validation in exportToCSV() method
+ * Bug 4: Missing trackBy functions in template *ngFor loops
+ * Bug 5: Method calls in templates causing performance issues
+ */
 export class OrdersDebugComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   filteredOrders: Order[] = [];

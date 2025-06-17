@@ -2,8 +2,9 @@
   <div class="header-section">
     <h2>Orders Management (Debug Exercise)</h2>
     <p class="debug-note">
-      🐛 This component contains <strong>5 intentional bugs</strong> for debugging practice with Cody AI.
-      Navigate to exercises to see the debugging prompts.
+      🐛 This component contains <strong>5 intentional bugs</strong> for debugging practice with Cody AI:<br>
+      <strong>Error Handling</strong> • <strong>Type Safety</strong> • <strong>Input Validation</strong> • <strong>Template Performance</strong><br>
+      Navigate to exercises to see the specific debugging prompts for each bug.
     </p>
   </div>
 
@@ -142,10 +143,19 @@
 
   <!-- Debug Panel -->
   <div class="debug-panel" *ngIf="true">
-    <h4>Debug Info</h4>
-    <p>Total Orders: {{ orders.length }}</p>
-    <p>Filtered Orders: {{ filteredOrders.length }}</p>
-    <p>Search Term: "{{ searchTerm }}"</p>
-    <p>Selected Status: {{ selectedStatus }}</p>
+    <h4>🔧 Debug Panel - 5 Bugs to Find</h4>
+    <div class="bug-checklist">
+      <p><strong>Bug 1:</strong> Missing error handling in loadOrders() method</p>
+      <p><strong>Bug 2:</strong> Unsafe property access to customerInfo.name</p>
+      <p><strong>Bug 3:</strong> Missing validation in exportToCSV() method</p>
+      <p><strong>Bug 4:</strong> Missing trackBy functions in *ngFor loops</p>
+      <p><strong>Bug 5:</strong> Method calls in templates (getItemsCount, getStatusBadgeClass)</p>
+    </div>
+    <div class="debug-stats">
+      <p>Total Orders: {{ orders.length }}</p>
+      <p>Filtered Orders: {{ filteredOrders.length }}</p>
+      <p>Search Term: "{{ searchTerm }}"</p>
+      <p>Selected Status: {{ selectedStatus }}</p>
+    </div>
   </div>
 </div>
