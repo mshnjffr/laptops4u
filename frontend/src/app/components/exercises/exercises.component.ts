@@ -26,6 +26,14 @@ export class ExercisesComponent {
       difficulty: 'Beginner',
       topics: ['Code Analysis', 'AI Assistant', 'Codebase Understanding', 'Architecture'],
       completed: false
+    },
+    {
+      id: 2,
+      title: 'Code Generation with Cody',
+      description: 'Build a complete favorites feature including service creation, component development, UI integration, and routing setup',
+      difficulty: 'Intermediate',
+      topics: ['Code Generation', 'Angular Services', 'Component Development', 'State Management', 'Routing'],
+      completed: false
     }
   ];
 

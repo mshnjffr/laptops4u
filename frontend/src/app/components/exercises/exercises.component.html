@@ -77,6 +77,70 @@
           </div>
         </div>
       </div>
+
+      <!-- Exercise 2: Code Generation Content -->
+      <div class="exercise-content" *ngIf="exercise.id === 2 && isExpanded(exercise.id)">
+        <div class="description-section">
+          <p>Building new features requires understanding existing patterns and extending them consistently. This exercise teaches you to:</p>
+          <ul>
+            <li><strong>Generate services</strong> - Create reusable business logic following Angular patterns</li>
+            <li><strong>Build components</strong> - Develop UI components with proper lifecycle management</li>
+            <li><strong>Integrate features</strong> - Connect services, routing, and components seamlessly</li>
+            <li><strong>Follow conventions</strong> - Maintain code consistency and architectural patterns</li>
+            <li><strong>Handle state</strong> - Implement reactive state management with persistence</li>
+          </ul>
+        </div>
+
+        <div class="files-section">
+          <h4>🗂️ Reference Files for Code Generation:</h4>
+          <div class="file-categories">
+            <div class="category">
+              <strong>Service Patterns:</strong>
+              <span class="file-path">frontend/src/app/services/cart.service.ts</span>
+              <span class="file-path">frontend/src/app/services/laptop.service.ts</span>
+              <span class="file-path">frontend/src/app/models/laptop.model.ts</span>
+            </div>
+            <div class="category">
+              <strong>Component Patterns:</strong>
+              <span class="file-path">frontend/src/app/components/laptop-list/laptop-list.component.ts</span>
+              <span class="file-path">frontend/src/app/components/laptop-list/laptop-list.component.html</span>
+              <span class="file-path">frontend/src/app/components/laptop-card/laptop-card.component.ts</span>
+            </div>
+            <div class="category">
+              <strong>Routing & Navigation:</strong>
+              <span class="file-path">frontend/src/app/app.routes.ts</span>
+              <span class="file-path">frontend/src/app/app.component.ts</span>
+              <span class="file-path">frontend/src/app/app.component.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prompts-section">
+          <h4>💡 Code Generation Prompts for Cody:</h4>
+          <div class="prompt-categories">
+            <div class="prompt-category">
+              <strong>Service Creation:</strong>
+              <span class="prompt-text">"Create a favorites service using frontend/src/app/services/cart.service.ts and frontend/src/app/models/laptop.model.ts as reference. Include methods: addToFavorites(), removeFromFavorites(), toggleFavorite(), isFavorite(), getFavorites(). Use BehaviorSubject for reactive updates and localStorage for persistence."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Component Development:</strong>
+              <span class="prompt-text">"Build a favorites page component following patterns from frontend/src/app/components/laptop-list/laptop-list.component.ts, frontend/src/app/components/laptop-list/laptop-list.component.html. Display favorites in grid, show empty state, include clear all button, reuse laptop-card component."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>UI Integration:</strong>
+              <span class="prompt-text">"Add heart button to frontend/src/app/components/laptop-card/laptop-card.component.ts, frontend/src/app/components/laptop-card/laptop-card.component.html. Position top-left, show 🤍 unliked / ❤️ liked, add toggleFavorite() method and CSS animations."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Routing Setup:</strong>
+              <span class="prompt-text">"Add favorites routing using frontend/src/app/app.routes.ts, frontend/src/app/app.component.ts, frontend/src/app/app.component.html. Create /favorites route, add navigation link with count badge, subscribe to favorites updates."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Integration Testing:</strong>
+              <span class="prompt-text">"Review complete integration: frontend/src/app/services/favorites.service.ts, frontend/src/app/components/favorites/favorites.component.ts, frontend/src/app/components/laptop-card/laptop-card.component.ts, frontend/src/app/app.component.ts. Verify services inject properly, navigation works, localStorage persists, reactive updates flow correctly."</span>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <div class="card-actions">
         <button 
