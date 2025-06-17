@@ -127,6 +127,14 @@ export class OrdersDebugComponent implements OnInit, OnDestroy {
     this.filterOrders();
   }
 
+  onSortChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    const [field, direction] = value.split('-');
+    this.sortBy = field;
+    this.sortDirection = direction as 'asc' | 'desc';
+    this.sortOrders();
+  }
+
   filterOrders(): void {
     this.filteredOrders = this.orders.filter(order => {
       const matchesSearch = !this.searchTerm || 
