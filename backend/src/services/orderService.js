@@ -2,7 +2,7 @@ const OrderModel = require('../models/order');
 const orderValidationService = require('./orderValidationService');
 const inventoryService = require('./inventoryService');
 const orderCalculationService = require('./orderCalculationService');
-const { InternalServerError, NotFoundError } = require('../utils/errors');
+const { InternalServerError, NotFoundError, ValidationError, ConflictError } = require('../utils/errors');
 
 class OrderService {
   /**
