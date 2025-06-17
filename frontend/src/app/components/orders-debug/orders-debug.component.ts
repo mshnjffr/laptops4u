@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Observable, Subject, BehaviorSubject, interval, Subscription } from 'rxjs';
+import { map, filter, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 interface Order {
   orderId: string;
@@ -33,15 +33,6 @@ interface OrderStats {
   templateUrl: './orders-debug.component.html',
   styleUrl: './orders-debug.component.scss'
 })
-/**
- * OrdersDebugComponent - Contains 5 intentional bugs for Cody AI debugging practice
- * 
- * Bug 1: Missing error handling in loadOrders() method
- * Bug 2: Unsafe property access to customerInfo.name (runtime error risk)
- * Bug 3: Missing validation in exportToCSV() method
- * Bug 4: Missing trackBy functions in template *ngFor loops
- * Bug 5: Method calls in templates causing performance issues
- */
 export class OrdersDebugComponent implements OnInit, OnDestroy {
   orders: Order[] = [];
   filteredOrders: Order[] = [];
@@ -54,7 +45,10 @@ export class OrdersDebugComponent implements OnInit, OnDestroy {
   sortDirection: 'asc' | 'desc' = 'desc';
   
   private searchSubject = new Subject<string>();
+  private refreshSubject = new Subject<void>();
   private destroy$ = new Subject<void>();
+  private autoRefreshInterval = interval(5000);
+  private ordersCache = new BehaviorSubject<Order[]>([]);
   
   statusOptions = [
     { value: 'all', label: 'All Orders' },
@@ -82,43 +76,73 @@ export class OrdersDebugComponent implements OnInit, OnDestroy {
         this.searchTerm = searchTerm;
         this.filterOrders();
       });
+
+    this.autoRefreshInterval
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadOrders();
+        this.loadOrderStats();
+      });
+
+    this.ordersCache
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(orders => {
+        this.orders = orders;
+        this.filterOrders();
+      });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
     this.searchSubject.complete();
+    this.refreshSubject.complete();
+    this.ordersCache.complete();
   }
 
   async loadOrders(): Promise<void> {
     this.loading = true;
     this.error = null;
     
-    // BUG 1: Missing try-catch error handling - HTTP request can fail
-    const orders = await this.http.get<Order[]>('http://localhost:3000/api/orders').toPromise();
-    
-    // BUG 2: Unsafe property access - customerInfo might be null/undefined
-    this.orders = orders?.map(order => ({
-    ...order,
-    customerName: (order.customerInfo as any).name, // This will throw error if customerInfo is null
-    orderDate: new Date(order.orderDate).toLocaleDateString(),
-    totalAmount: Math.round(order.totalAmount * 100) / 100
-    })) || [];
-    
-    this.filterOrders();
-    this.loading = false;
+    try {
+      // BUG 8: No error handling for HTTP requests
+      const orders = await this.http.get<Order[]>('http://localhost:3000/api/orders').toPromise();
+      
+      // BUG 9: Potential null/undefined access
+      this.orders = orders?.map(order => ({
+        ...order,
+        // BUG 10: Unsafe property access
+        customerName: order.customerInfo?.name,
+        // BUG 11: Incorrect date parsing
+        orderDate: new Date(order.orderDate).toLocaleDateString(),
+        // BUG 12: Math precision issues
+        totalAmount: Math.round(order.totalAmount * 100) / 100
+      })) || [];
+      
+      this.ordersCache.next(this.orders);
+      this.filterOrders();
+    } catch (error) {
+      // BUG 13: Poor error handling
+      this.error = 'Failed to load orders';
+      console.log(error); // Should use console.error
+    } finally {
+      this.loading = false;
+    }
   }
 
   async loadOrderStats(): Promise<void> {
     try {
+      // BUG 14: Hardcoded URL without environment config
       const stats = await this.http.get<OrderStats>('http://localhost:3000/api/orders/stats/summary').toPromise();
       this.orderStats = stats || null;
     } catch (error) {
+      // BUG 15: Silent failure
       console.log('Stats failed to load');
     }
   }
 
   onSearchChange(event: Event): void {
+    // BUG 16: Emitting too frequently
     const searchTerm = (event.target as HTMLInputElement).value;
     this.searchSubject.next(searchTerm);
   }
@@ -127,29 +151,42 @@ export class OrdersDebugComponent implements OnInit, OnDestroy {
     this.filterOrders();
   }
 
+  onSortChange(): void {
+    this.sortOrders();
+  }
+
   filterOrders(): void {
-    this.filteredOrders = this.orders.filter(order => {
-      const matchesSearch = !this.searchTerm || 
-        order.orderId.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        (order.customerInfo?.email?.toLowerCase().includes(this.searchTerm.toLowerCase()));
-      
-      const matchesStatus = this.selectedStatus === 'all' || order.status === this.selectedStatus;
-      
-      return matchesSearch && matchesStatus;
-    });
-    
+    let filtered = [...this.orders];
+
+    // BUG 17: Case-sensitive search
+    if (this.searchTerm) {
+      filtered = filtered.filter(order => 
+        order.orderId.includes(this.searchTerm) ||
+        // BUG 18: Potential null reference  
+        order.customerInfo?.email?.includes(this.searchTerm)
+      );
+    }
+
+    // BUG 19: String comparison issue
+    if (this.selectedStatus !== 'all') {
+      filtered = filtered.filter(order => order.status === this.selectedStatus);
+    }
+
+    this.filteredOrders = filtered;
     this.sortOrders();
   }
 
   sortOrders(): void {
+    // BUG 20: Missing null check
     this.filteredOrders.sort((a, b) => {
       let aValue: any;
       let bValue: any;
-      
+
       switch (this.sortBy) {
         case 'date':
-          aValue = new Date(a.orderDate);
-          bValue = new Date(b.orderDate);
+          // BUG 21: Incorrect date comparison
+          aValue = a.orderDate;
+          bValue = b.orderDate;
           break;
         case 'amount':
           aValue = a.totalAmount;
@@ -160,26 +197,36 @@ export class OrdersDebugComponent implements OnInit, OnDestroy {
           bValue = b.status;
           break;
         default:
-          aValue = a.orderId;
-          bValue = b.orderId;
+          return 0;
       }
 
+      // BUG 22: Type coercion issues
       if (aValue < bValue) return this.sortDirection === 'asc' ? -1 : 1;
       if (aValue > bValue) return this.sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
   }
 
+  // BUG 23: Missing trackBy function causing performance issues
   deleteOrder(orderId: string): void {
     if (confirm('Are you sure you want to delete this order?')) {
+      // BUG 24: Optimistic update without proper error handling
       this.orders = this.orders.filter(order => order.orderId !== orderId);
       this.filterOrders();
       
-      this.http.delete(`http://localhost:3000/api/orders/${orderId}`).subscribe();
+      this.http.delete(`http://localhost:3000/api/orders/${orderId}`)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          error: (error) => {
+            console.error('Failed to delete order', error);
+            this.loadOrders(); // Reload to revert optimistic update
+          }
+        });
     }
   }
 
   updateOrderStatus(orderId: string, event: Event): void {
+    // BUG 26: Race condition - multiple rapid clicks
     const newStatus = (event.target as HTMLSelectElement).value;
     const orderIndex = this.orders.findIndex(order => order.orderId === orderId);
     if (orderIndex !== -1) {
@@ -187,64 +234,53 @@ export class OrdersDebugComponent implements OnInit, OnDestroy {
       this.filterOrders();
       
       this.http.put(`http://localhost:3000/api/orders/${orderId}/status`, { status: newStatus })
+        .pipe(takeUntil(this.destroy$))
         .subscribe({
           error: (error) => {
-            console.error('Failed to update status:', error);
+            console.error('Failed to update order status', error);
+            this.loadOrders(); // Reload to revert optimistic update
           }
         });
     }
   }
 
   refreshOrders(): void {
+    // BUG 29: No debouncing on manual refresh
     this.loadOrders();
     this.loadOrderStats();
   }
 
-  exportToCSV(): void {
-    // BUG 3: Missing input validation - no check if there are orders to export
-    const csvContent = this.generateCSVContent();
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
+  // BUG 30: Method with side effects and no error handling
+  exportOrders(): void {
+    const csvData = this.orders.map(order => {
+      return [
+        order.orderId,
+        order.orderDate,
+        order.status,
+        order.totalAmount,
+        // BUG 31: Potential null reference in export
+        order.customerInfo?.email || 'N/A'
+      ].join(',');
+    }).join('\n');
+
+    // BUG 32: Browser compatibility issues
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'orders-export.csv';
+    link.download = 'orders.csv';
     link.click();
-    URL.revokeObjectURL(url);
+    window.URL.revokeObjectURL(url);
   }
 
-  private generateCSVContent(): string {
-    const headers = ['Order ID', 'Customer', 'Date', 'Status', 'Total'];
-    const rows = this.filteredOrders.map(order => [
-      order.orderId,
-      order.customerInfo?.name || 'N/A',
-      order.orderDate,
-      order.status,
-      order.totalAmount.toString()
-    ]);
-    
-    return [headers, ...rows].map(row => row.join(',')).join('\\n');
-  }
-
-  // BUG 4: Performance issue - method called from template causing unnecessary re-calculations
+  // BUG 34: Method called from template causing performance issues
   getItemsCount(order: Order): number {
+    // BUG 35: Expensive calculation called on every change detection
     return order.items.reduce((total, item) => total + item.quantity, 0);
   }
 
-  // BUG 5: Template performance - function called on every change detection cycle
-  getStatusBadgeClass(status: string): string {
-    const statusClasses: { [key: string]: string } = {
-      'pending': 'badge-warning',
-      'confirmed': 'badge-info', 
-      'processing': 'badge-primary',
-      'shipped': 'badge-success',
-      'delivered': 'badge-success',
-      'cancelled': 'badge-danger'
-    };
-    return statusClasses[status] || 'badge-secondary';
-  }
-
   viewOrderDetails(order: Order): void {
-    // Simple implementation for the exercise
-    alert(`Order Details:\\nID: ${order.orderId}\\nCustomer: ${order.customerInfo?.name || 'N/A'}\\nTotal: $${order.totalAmount}`);
+    // BUG 36: Not implemented but referenced in template
+    alert('View details not implemented yet');
   }
 }
