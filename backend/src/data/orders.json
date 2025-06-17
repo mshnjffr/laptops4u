@@ -50,5 +50,18 @@
     ],
     "totalAmount": 1799,
     "status": "confirmed"
+  },
+  {
+    "orderId": "ORD-1750168831648-242",
+    "orderDate": "2025-06-17T14:00:31.648Z",
+    "items": [
+      {
+        "laptopId": "dell-xps-15-2024",
+        "quantity": 1,
+        "price": 1799
+      }
+    ],
+    "totalAmount": 1799,
+    "status": "confirmed"
   }
 ]

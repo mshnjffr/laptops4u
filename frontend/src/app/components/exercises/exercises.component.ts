@@ -42,6 +42,14 @@ export class ExercisesComponent {
       difficulty: 'Advanced',
       topics: ['Backend Architecture', 'Service Layer', 'Error Handling', 'Separation of Concerns', 'Node.js Best Practices'],
       completed: false
+    },
+    {
+      id: 4,
+      title: 'Debugging & Troubleshooting with Cody',
+      description: 'Learn to identify and fix common frontend bugs including memory leaks, performance issues, race conditions, and validation problems using Cody as your debugging assistant',
+      difficulty: 'Intermediate',
+      topics: ['Memory Leaks', 'Performance Optimization', 'Race Conditions', 'Error Handling', 'Code Quality'],
+      completed: false
     }
   ];
 

@@ -1,52 +1,51 @@
 const express = require('express');
 const cors = require('cors');
-const laptopRoutes = require('./routes/laptops');
-const orderRoutes = require('./routes/orders');
+const globalErrorHandler = require('./middleware/errorHandler');
+const { AppError } = require('./utils/errors');
 
 const app = express();
 
-// Middleware
+// Trust proxy if behind reverse proxy (for production)
+app.set('trust proxy', 1);
+
+// Security and parsing middleware
 app.use(cors({
-  origin: ['http://localhost:4200', 'http://127.0.0.1:4200'],
+  origin: process.env.FRONTEND_URL || 'http://localhost:4200',
   credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Request logging middleware
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  next();
-});
-
-// Routes
-app.use('/api/laptops', laptopRoutes);
-app.use('/api/orders', orderRoutes);
+// Request logging middleware (development only)
+if (process.env.NODE_ENV === 'development') {
+  app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
+    next();
+  });
+}
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    message: 'Laptops4U API is running',
-    timestamp: new Date().toISOString()
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
   });
 });
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    error: 'Not found',
-    message: 'API endpoint not found'
-  });
+// API Routes
+app.use('/api/laptops', require('./routes/laptops'));
+app.use('/api/orders', require('./routes/orders'));
+
+// Handle undefined routes - this must come after all defined routes
+app.all('*', (req, res, next) => {
+  const err = new AppError(`Can't find ${req.originalUrl} on this server!`, 404);
+  next(err);
 });
 
-// Global error handler
-app.use((error, req, res, next) => {
-  console.error('Unhandled error:', error);
-  res.status(500).json({
-    error: 'Internal server error',
-    message: 'An unexpected error occurred'
-  });
-});
+// Global error handling middleware - this must be the last middleware
+app.use(globalErrorHandler);
 
 module.exports = app;

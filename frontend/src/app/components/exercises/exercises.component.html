@@ -218,6 +218,106 @@
     </div>
   </div>
 
+      <!-- Exercise 4: Debugging & Troubleshooting Content -->
+      <div class="exercise-content" *ngIf="exercise.id === 4 && isExpanded(exercise.id)">
+        <div class="description-section">
+          <p>Learn to systematically identify and fix common frontend bugs using Cody as your debugging assistant. This exercise covers:</p>
+          <ul>
+            <li><strong>Memory Leak Detection</strong> - Find and fix unsubscribed observables and event listeners</li>
+            <li><strong>Performance Issues</strong> - Identify missing trackBy functions, inefficient operations in templates</li>
+            <li><strong>Race Conditions</strong> - Debug asynchronous operations and state management problems</li>
+            <li><strong>Type & Validation Errors</strong> - Fix TypeScript errors and input validation issues</li>
+            <li><strong>Error Handling</strong> - Implement proper error boundaries and user feedback</li>
+          </ul>
+        </div>
+
+        <div class="files-section">
+          <h4>🐛 Files with Bugs to Debug with Cody:</h4>
+          <div class="file-categories">
+            <div class="category">
+              <strong>Buggy Component:</strong>
+              <span class="file-path">frontend/src/app/components/orders-debug/orders-debug.component.ts</span>
+              <span class="file-path">frontend/src/app/components/orders-debug/orders-debug.component.html</span>
+              <span class="file-path">frontend/src/app/components/orders-debug/orders-debug.component.scss</span>
+            </div>
+            <div class="category">
+              <strong>Reference Files:</strong>
+              <span class="file-path">frontend/src/app/models/order.model.ts</span>
+              <span class="file-path">frontend/src/app/services/order.service.ts</span>
+              <span class="file-path">backend/src/routes/orders.js</span>
+            </div>
+          </div>
+          <div class="note">
+            <p><strong>📍 Access the buggy component:</strong> Navigate to <code>http://localhost:4200/orders-debug</code> (not in main navigation)</p>
+            <p><strong>🔍 Bug Summary:</strong> The orders-debug component contains 50+ intentional bugs including memory leaks, performance issues, race conditions, and validation problems.</p>
+          </div>
+        </div>
+
+        <div class="prompts-section">
+          <h4>🤖 Cody Debugging Prompts:</h4>
+          <div class="prompt-categories">
+            <div class="prompt-category">
+              <strong>Memory Leak Analysis:</strong>
+              <span class="prompt-text">"Analyze frontend/src/app/components/orders-debug/orders-debug.component.ts for memory leaks. Look for unsubscribed observables, missing OnDestroy implementation, and event listeners that aren't cleaned up. Show me the specific lines with problems and how to fix them."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Performance Issues Detection:</strong>
+              <span class="prompt-text">"Review frontend/src/app/components/orders-debug/orders-debug.component.html and orders-debug.component.ts for performance problems. Find missing trackBy functions, method calls in templates, inefficient operations, and suggest optimizations."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Race Condition Debugging:</strong>
+              <span class="prompt-text">"Examine the async operations in frontend/src/app/components/orders-debug/orders-debug.component.ts. Identify race conditions in HTTP requests, concurrent state updates, and suggest proper handling using RxJS operators or Angular patterns."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>TypeScript Error Resolution:</strong>
+              <span class="prompt-text">"Fix TypeScript compilation errors in frontend/src/app/components/orders-debug/orders-debug.component.ts. Focus on type safety, null checks, and proper typing while maintaining the component's functionality."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Validation & Error Handling:</strong>
+              <span class="prompt-text">"Review form validation and error handling in frontend/src/app/components/orders-debug/orders-debug.component.ts and orders-debug.component.html. Identify missing validation, improper error messages, and implement robust error handling with user feedback."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Comprehensive Bug Fix:</strong>
+              <span class="prompt-text">"Systematically debug frontend/src/app/components/orders-debug/orders-debug.component.ts by first identifying all issues (memory leaks, performance, race conditions, validation), then provide a step-by-step fix plan with code examples for each category of bugs."</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testing-section">
+          <h4>✅ Debugging Verification:</h4>
+          <div class="testing-categories">
+            <div class="test-category">
+              <strong>Memory Leak Testing:</strong>
+              <p>Use browser DevTools Memory tab to check for memory growth after repeated navigation to/from the orders-debug page.</p>
+            </div>
+            <div class="test-category">
+              <strong>Performance Testing:</strong>
+              <p>Monitor browser DevTools Performance tab while interacting with the orders list (search, filter, status updates).</p>
+            </div>
+            <div class="test-category">
+              <strong>Console Error Monitoring:</strong>
+              <p>Check browser console for TypeScript errors, validation warnings, and unhandled promise rejections.</p>
+            </div>
+            <div class="test-category">
+              <strong>User Experience Testing:</strong>
+              <p>Test edge cases: rapid clicks, empty states, network failures, and invalid inputs to verify robust error handling.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-actions">
+        <button 
+          class="complete-btn"
+          [class.completed]="exercise.completed"
+          (click)="toggleComplete(exercise)">
+          <span *ngIf="!exercise.completed">Mark as Complete</span>
+          <span *ngIf="exercise.completed">✓ Completed</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Empty State -->
   <div *ngIf="filteredExercises.length === 0" class="empty-state">
     <div class="empty-content">
