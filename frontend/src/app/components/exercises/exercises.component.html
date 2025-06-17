@@ -141,6 +141,70 @@
           </div>
         </div>
       </div>
+
+      <!-- Exercise 3: Backend Refactoring Content -->
+      <div class="exercise-content" *ngIf="exercise.id === 3 && isExpanded(exercise.id)">
+        <div class="description-section">
+          <p>Backend refactoring improves code maintainability by applying separation of concerns and architectural patterns. This exercise teaches you to:</p>
+          <ul>
+            <li><strong>Extract service layers</strong> - Move business logic out of route handlers into dedicated services</li>
+            <li><strong>Implement error handling</strong> - Create centralized error handling middleware and custom error classes</li>
+            <li><strong>Improve separation of concerns</strong> - Separate validation, business logic, and data access</li>
+            <li><strong>Apply Node.js best practices</strong> - Follow established patterns for Express.js architecture</li>
+            <li><strong>Reduce code duplication</strong> - Extract repetitive patterns into reusable components</li>
+          </ul>
+        </div>
+
+        <div class="files-section">
+          <h4>🗂️ Files to Refactor with Cody:</h4>
+          <div class="file-categories">
+            <div class="category">
+              <strong>Current Implementation:</strong>
+              <span class="file-path">backend/src/routes/orders.js</span>
+              <span class="file-path">backend/src/routes/laptops.js</span>
+              <span class="file-path">backend/src/models/laptop.js</span>
+            </div>
+            <div class="category">
+              <strong>Reference Architecture:</strong>
+              <span class="file-path">backend/src/app.js</span>
+              <span class="file-path">backend/src/models/order.js</span>
+              <span class="file-path">backend/package.json</span>
+            </div>
+            <div class="category">
+              <strong>Target Structure:</strong>
+              <span class="file-path">backend/src/services/</span>
+              <span class="file-path">backend/src/middleware/</span>
+              <span class="file-path">backend/src/utils/</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prompts-section">
+          <h4>💡 Backend Refactoring Prompts for Cody:</h4>
+          <div class="prompt-categories">
+            <div class="prompt-category">
+              <strong>Error Handling Middleware:</strong>
+              <span class="prompt-text">"Create error handling middleware using backend/src/routes/orders.js, backend/src/routes/laptops.js as reference. Create backend/src/middleware/errorHandler.js (central error handler), backend/src/middleware/asyncWrapper.js (async route wrapper), backend/src/utils/errors.js (custom error classes). Replace repetitive try-catch blocks."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Service Layer Extraction:</strong>
+              <span class="prompt-text">"Extract business logic from backend/src/routes/orders.js into service layer. Create backend/src/services/orderValidationService.js (validation), backend/src/services/inventoryService.js (stock checking), backend/src/services/orderCalculationService.js (calculations), backend/src/services/orderService.js (orchestration)."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Route Simplification:</strong>
+              <span class="prompt-text">"Simplify backend/src/routes/orders.js and backend/src/routes/laptops.js using the new service layer and error middleware. Reference backend/src/services/orderService.js, backend/src/middleware/asyncWrapper.js. Transform complex routes into simple HTTP handlers."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Architecture Integration:</strong>
+              <span class="prompt-text">"Update backend/src/app.js to integrate error handling middleware. Review backend/src/routes/orders.js, backend/src/services/orderService.js, backend/src/middleware/errorHandler.js. Ensure proper middleware registration and service injection."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Best Practices Review:</strong>
+              <span class="prompt-text">"Review the refactored architecture using backend/src/services/orderService.js, backend/src/services/orderValidationService.js, backend/src/middleware/errorHandler.js, backend/src/routes/orders.js. Evaluate separation of concerns, error handling consistency, and Node.js best practices compliance."</span>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <div class="card-actions">
         <button 

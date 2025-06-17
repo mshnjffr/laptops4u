@@ -34,6 +34,14 @@ export class ExercisesComponent {
       difficulty: 'Intermediate',
       topics: ['Code Generation', 'Angular Services', 'Component Development', 'State Management', 'Routing'],
       completed: false
+    },
+    {
+      id: 3,
+      title: 'Backend Refactoring with Cody',
+      description: 'Refactor Express.js backend by extracting service layers, adding error handling middleware, and improving separation of concerns',
+      difficulty: 'Advanced',
+      topics: ['Backend Architecture', 'Service Layer', 'Error Handling', 'Separation of Concerns', 'Node.js Best Practices'],
+      completed: false
     }
   ];
 
