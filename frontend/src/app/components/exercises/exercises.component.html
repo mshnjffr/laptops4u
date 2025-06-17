@@ -15,7 +15,7 @@
         </span>
       </div>
       
-      <div class="exercise-content" *ngIf="isExpanded(exercise.id)">
+      <div class="exercise-content" *ngIf="exercise.id === 1 && isExpanded(exercise.id)">
         <div class="description-section">
           <p>When working with unfamiliar codebases, understanding the architecture and data flow is crucial for productive development. This helps you:</p>
           <ul>
