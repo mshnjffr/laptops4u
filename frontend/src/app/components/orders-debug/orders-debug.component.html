@@ -1,40 +1,33 @@
 <div class="orders-debug-container">
-  <div class="orders-header">
+  <div class="header-section">
     <h2>Orders Management (Debug Exercise)</h2>
-    <div class="header-actions">
-      <button class="refresh-btn" (click)="refreshOrders()">
-        🔄 Refresh
-      </button>
-      <button class="export-btn" (click)="exportOrders()">
-        📥 Export CSV
-      </button>
-    </div>
+    <p class="debug-note">
+      🐛 This component contains <strong>5 intentional bugs</strong> for debugging practice with Cody AI:<br>
+      <strong>Error Handling</strong> • <strong>Type Safety</strong> • <strong>Input Validation</strong> • <strong>Template Performance</strong><br>
+      Navigate to exercises to see the specific debugging prompts for each bug.
+    </p>
   </div>
 
-  <!-- Stats Section -->
-  <div class="stats-section" *ngIf="orderStats">
+  <!-- Stats Cards -->
+  <div class="stats-grid" *ngIf="orderStats">
     <div class="stat-card">
       <h3>Total Orders</h3>
-      <!-- BUG 34: No null check in template -->
-      <p class="stat-value">{{ orderStats.totalOrders }}</p>
+      <div class="stat-value">{{ orderStats.totalOrders }}</div>
     </div>
     <div class="stat-card">
       <h3>Total Revenue</h3>
-      <!-- BUG 35: Incorrect currency formatting -->
-      <p class="stat-value">${{ orderStats.totalRevenue }}</p>
+      <div class="stat-value">{{ orderStats.totalRevenue | currency }}</div>
     </div>
     <div class="stat-card">
       <h3>Average Order</h3>
-      <!-- BUG 36: No number formatting -->
-      <p class="stat-value">${{ orderStats.averageOrderValue }}</p>
+      <div class="stat-value">{{ orderStats.averageOrderValue | currency }}</div>
     </div>
   </div>
 
-  <!-- Filters Section -->
-  <div class="filters-section">
-    <div class="filter-group">
+  <!-- Search and Filters -->
+  <div class="controls-section">
+    <div class="search-group">
       <label for="search">Search Orders:</label>
-      <!-- BUG 37: No debouncing in template -->
       <input 
         id="search"
         type="text" 
@@ -43,67 +36,49 @@
         placeholder="Search by order ID or email..."
         class="search-input">
     </div>
-
+    
     <div class="filter-group">
       <label for="status">Status Filter:</label>
       <select 
         id="status"
         [(ngModel)]="selectedStatus" 
         (change)="onStatusChange()"
-        class="status-select">
-        <!-- BUG 38: Missing trackBy in ngFor -->
+        class="status-filter">
+        <!-- Missing trackBy function can cause performance issues with large lists -->
         <option *ngFor="let status of statusOptions" [value]="status.value">
           {{ status.label }}
         </option>
       </select>
     </div>
 
-    <div class="filter-group">
-      <label for="sort">Sort By:</label>
-      <select 
-        id="sort"
-        [(ngModel)]="sortBy" 
-        (change)="onSortChange()"
-        class="sort-select">
-        <option value="date">Date</option>
-        <option value="amount">Amount</option>
-        <option value="status">Status</option>
-      </select>
-      
-      <button 
-        class="sort-direction-btn"
-        (click)="sortDirection = sortDirection === 'asc' ? 'desc' : 'asc'; onSortChange()">
-        {{ sortDirection === 'asc' ? '↑' : '↓' }}
-      </button>
+    <div class="actions-group">
+      <button (click)="refreshOrders()" class="refresh-btn">Refresh</button>
+      <button (click)="exportToCSV()" class="export-btn">Export CSV</button>
     </div>
   </div>
 
-  <!-- Loading State -->
-  <div *ngIf="loading" class="loading-container">
-    <div class="loading-spinner"></div>
+  <!-- Loading and Error States -->
+  <div *ngIf="loading" class="loading-state">
     <p>Loading orders...</p>
   </div>
 
-  <!-- Error State -->
-  <div *ngIf="error" class="error-container">
-    <!-- BUG 39: XSS vulnerability - unescaped HTML -->
-    <p [innerHTML]="error"></p>
-    <button (click)="loadOrders()">Retry</button>
+  <div *ngIf="error" class="error-state">
+    <p>{{ error }}</p>
+    <button (click)="refreshOrders()">Retry</button>
   </div>
 
   <!-- Orders Table -->
-  <div *ngIf="!loading && !error" class="orders-table-container">
-    <div class="orders-count">
-      <!-- BUG 40: Performance issue - function call in template -->
-      <p>Showing {{ filteredOrders.length }} of {{ orders.length }} orders</p>
+  <div class="table-container" *ngIf="!loading && !error">
+    <div class="table-header">
+      <h3>Orders ({{ filteredOrders.length }} total)</h3>
     </div>
-
+    
     <table class="orders-table">
       <thead>
         <tr>
           <th>Order ID</th>
-          <th>Date</th>
           <th>Customer</th>
+          <th>Date</th>
           <th>Items</th>
           <th>Total</th>
           <th>Status</th>
@@ -111,52 +86,43 @@
         </tr>
       </thead>
       <tbody>
-        <!-- BUG 41: Missing trackBy causing performance issues -->
-        <tr *ngFor="let order of filteredOrders; let i = index" class="order-row">
+        <!-- Template Performance: Missing trackBy function causes unnecessary DOM updates -->
+        <tr *ngFor="let order of filteredOrders" class="order-row">
           <td class="order-id">{{ order.orderId }}</td>
-          <!-- BUG 42: Unsafe date display -->
-          <td class="order-date">{{ order.orderDate }}</td>
           <td class="customer-info">
-            <!-- BUG 43: Potential null reference -->
-            <div class="customer-name">{{ order.customerInfo?.name }}</div>
-            <div class="customer-email">{{ order.customerInfo?.email }}</div>
+            <div class="customer-name">{{ order.customerInfo?.name || 'N/A' }}</div>
+            <div class="customer-email">{{ order.customerInfo?.email || 'N/A' }}</div>
           </td>
-          <td class="items-count">
-            <!-- BUG 44: Performance issue - method call in template -->
-            {{ getItemsCount(order) }} items
-          </td>
-          <td class="total-amount">
-            <!-- BUG 45: Incorrect currency pipe usage -->
-            {{ order.totalAmount | currency:'USD':'symbol':'1.2-2' }}
-          </td>
+          <td class="order-date">{{ order.orderDate }}</td>
+          <!-- Template Performance: Method calls in templates cause performance issues -->
+          <td class="items-count">{{ getItemsCount(order) }} items</td>
+          <td class="total-amount">{{ order.totalAmount | currency }}</td>
           <td class="order-status">
             <select 
               [value]="order.status"
               (change)="updateOrderStatus(order.orderId, $event)"
               class="status-dropdown">
-              <!-- BUG 46: Status options not filtered properly -->
               <option *ngFor="let status of statusOptions" 
                 [value]="status.value" 
                 [disabled]="status.value === 'all'">
                 {{ status.label }}
               </option>
             </select>
+            <!-- Template Performance: Function call in template for styling -->
+            <span [class]="getStatusBadgeClass(order.status)">{{ order.status }}</span>
           </td>
           <td class="actions">
-            <!-- BUG 47: No confirmation for destructive actions -->
             <button 
-              class="delete-btn" 
               (click)="deleteOrder(order.orderId)"
+              class="delete-btn"
               title="Delete Order">
-              🗑️
+              Delete
             </button>
-            
-            <!-- BUG 48: Action availability not checked -->
             <button 
-              class="view-btn" 
               (click)="viewOrderDetails(order)"
+              class="view-btn"
               title="View Details">
-              👁️
+              View
             </button>
           </td>
         </tr>
@@ -165,29 +131,31 @@
 
     <!-- Empty State -->
     <div *ngIf="filteredOrders.length === 0" class="empty-state">
-      <p>No orders found matching your criteria.</p>
-      <button (click)="searchTerm = ''; selectedStatus = 'all'; filterOrders()">
+      <h4>No orders found</h4>
+      <p>Try adjusting your search or filter criteria</p>
+      <button 
+        (click)="searchTerm = ''; selectedStatus = 'all'; filterOrders()"
+        class="reset-btn">
         Clear Filters
       </button>
     </div>
   </div>
 
-  <!-- Pagination (Not implemented but referenced) -->
-  <!-- BUG 49: Non-functional pagination UI -->
-  <div class="pagination" *ngIf="orders.length > 10">
-    <button [disabled]="true">← Previous</button>
-    <span>Page 1 of 1</span>
-    <button [disabled]="true">Next →</button>
-  </div>
-
-  <!-- Debug Info Panel -->
+  <!-- Debug Panel -->
   <div class="debug-panel" *ngIf="true">
-    <h4>Debug Info</h4>
-    <p>Total Orders: {{ orders.length }}</p>
-    <p>Filtered Orders: {{ filteredOrders.length }}</p>
-    <p>Search Term: "{{ searchTerm }}"</p>
-    <p>Selected Status: {{ selectedStatus }}</p>
-    <!-- BUG 50: Memory usage displayed but not calculated -->
-    <p>Component Memory Usage: Unknown</p>
+    <h4>🔧 Debug Panel - 5 Bugs to Find</h4>
+    <div class="bug-checklist">
+      <p><strong>Bug 1:</strong> Missing error handling in loadOrders() method</p>
+      <p><strong>Bug 2:</strong> Unsafe property access to customerInfo.name</p>
+      <p><strong>Bug 3:</strong> Missing validation in exportToCSV() method</p>
+      <p><strong>Bug 4:</strong> Missing trackBy functions in *ngFor loops</p>
+      <p><strong>Bug 5:</strong> Method calls in templates (getItemsCount, getStatusBadgeClass)</p>
+    </div>
+    <div class="debug-stats">
+      <p>Total Orders: {{ orders.length }}</p>
+      <p>Filtered Orders: {{ filteredOrders.length }}</p>
+      <p>Search Term: "{{ searchTerm }}"</p>
+      <p>Selected Status: {{ selectedStatus }}</p>
+    </div>
   </div>
 </div>
