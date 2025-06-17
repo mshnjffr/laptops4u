@@ -205,18 +205,6 @@
           </div>
         </div>
       </div>
-      
-      <div class="card-actions">
-        <button 
-          class="complete-btn"
-          [class.completed]="exercise.completed"
-          (click)="toggleComplete(exercise)">
-          <span *ngIf="!exercise.completed">Mark as Complete</span>
-          <span *ngIf="exercise.completed">✓ Completed</span>
-        </button>
-      </div>
-    </div>
-  </div>
 
       <!-- Exercise 4: Debugging & Troubleshooting Content -->
       <div class="exercise-content" *ngIf="exercise.id === 4 && isExpanded(exercise.id)">
