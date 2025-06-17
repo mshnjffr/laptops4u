@@ -46,9 +46,9 @@ export class ExercisesComponent {
     {
       id: 4,
       title: 'Debugging & Troubleshooting with Cody',
-      description: 'Learn to identify and fix common frontend bugs including memory leaks, performance issues, race conditions, and validation problems using Cody as your debugging assistant',
+      description: 'Learn to identify and fix 5 common frontend bugs including error handling, type safety, performance issues, and validation problems using Cody as your debugging assistant',
       difficulty: 'Intermediate',
-      topics: ['Memory Leaks', 'Performance Optimization', 'Race Conditions', 'Error Handling', 'Code Quality'],
+      topics: ['Error Handling', 'Type Safety', 'Performance Optimization', 'Input Validation', 'Template Best Practices'],
       completed: false
     }
   ];
