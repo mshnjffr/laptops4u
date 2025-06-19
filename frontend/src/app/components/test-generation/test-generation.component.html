@@ -1,0 +1,119 @@
+<div class="test-generation-container">
+  <div class="header">
+    <h1>🧪 Exercise 5: API Test Generation with Cody AI</h1>
+    <p class="subtitle">Learn to generate comprehensive test suites for Express.js APIs using Jest and Supertest</p>
+  </div>
+
+
+
+  <div class="api-overview">
+    <h2>🔌 Available API Endpoints</h2>
+    <div class="endpoints-grid">
+      <div class="endpoint-card">
+        <h4>Health Check</h4>
+        <code>GET /api/health</code>
+        <p>Returns server status and timestamp</p>
+      </div>
+      <div class="endpoint-card">
+        <h4>Get All Laptops</h4>
+        <code>GET /api/laptops</code>
+        <p>Returns list of all available laptops</p>
+      </div>
+      <div class="endpoint-card">
+        <h4>Get Laptop by ID</h4>
+        <code>GET /api/laptops/:id</code>
+        <p>Returns specific laptop details</p>
+      </div>
+      <div class="endpoint-card">
+        <h4>Create Order</h4>
+        <code>POST /api/orders</code>
+        <p>Creates new order with validation</p>
+      </div>
+      <div class="endpoint-card">
+        <h4>Get All Orders</h4>
+        <code>GET /api/orders</code>
+        <p>Returns list of all orders</p>
+      </div>
+      <div class="endpoint-card">
+        <h4>Get Order by ID</h4>
+        <code>GET /api/orders/:id</code>
+        <p>Returns specific order details</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="test-scenarios">
+    <h2>🧪 Test Generation Scenarios</h2>
+    
+    <div class="scenario-section">
+      <h3>📝 Scenario 1: Basic Endpoint Testing</h3>
+      <div class="scenario-content">
+        <p><strong>Goal:</strong> Generate basic tests for the health check and laptops endpoints</p>
+        <div class="cody-prompt">
+          <h4>🤖 Cody AI Prompt:</h4>
+          <div class="prompt-text">
+            "Generate Jest and Supertest tests for the following Express.js endpoints:
+            1. GET /api/health - should return status 200 with status: 'OK'
+            2. GET /api/laptops - should return status 200 with array of laptops
+            3. GET /api/laptops/:id - should return 200 for valid ID, 404 for invalid ID
+            
+            Use proper test structure with describe blocks and meaningful test descriptions."
+          </div>
+          <button class="copy-prompt" (click)="copyToClipboard('basic-endpoints')">📋 Copy Prompt</button>
+        </div>
+        <div class="file-info">
+          <p><strong>📁 Create test file:</strong> <code>backend/tests/laptops.test.js</code></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-section">
+      <h3>📝 Scenario 2: POST Endpoint with Validation</h3>
+      <div class="scenario-content">
+        <p><strong>Goal:</strong> Generate comprehensive tests for the order creation endpoint</p>
+        <div class="cody-prompt">
+          <h4>🤖 Cody AI Prompt:</h4>
+          <div class="prompt-text">
+            "Generate comprehensive Jest and Supertest tests for POST /api/orders endpoint with this validation logic:
+            - Requires 'items' array in request body
+            - Each item needs 'laptopId' and positive 'quantity'
+            - Validates laptop exists and is in stock
+            - Returns 201 on success, 400 for validation errors, 404 if laptop not found
+            
+            Include tests for: valid payload, missing items, invalid quantity, non-existent laptop ID, out of stock scenarios."
+          </div>
+          <button class="copy-prompt" (click)="copyToClipboard('post-validation')">📋 Copy Prompt</button>
+        </div>
+        <div class="file-info">
+          <p><strong>📁 Create test file:</strong> <code>backend/tests/orders.test.js</code></p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="testing-commands">
+    <h2>🚀 Running Your Tests</h2>
+    <div class="commands-grid">
+      <div class="command-card">
+        <h4>Run All Tests</h4>
+        <code>npm test</code>
+      </div>
+      <div class="command-card">
+        <h4>Watch Mode</h4>
+        <code>npm run test:watch</code>
+      </div>
+      <div class="command-card">
+        <h4>Coverage Report</h4>
+        <code>npm run test:coverage</code>
+      </div>
+      <div class="command-card">
+        <h4>Single Test File</h4>
+        <code>npm test -- laptops.test.js</code>
+      </div>
+    </div>
+  </div>
+
+
+</div>

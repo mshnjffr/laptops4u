@@ -42,6 +42,22 @@ export class ExercisesComponent {
       difficulty: 'Advanced',
       topics: ['Backend Architecture', 'Service Layer', 'Error Handling', 'Separation of Concerns', 'Node.js Best Practices'],
       completed: false
+    },
+    {
+      id: 4,
+      title: 'Debugging & Troubleshooting with Cody',
+      description: 'Learn to identify and fix 5 common frontend bugs including error handling, type safety, performance issues, and validation problems using Cody as your debugging assistant',
+      difficulty: 'Intermediate',
+      topics: ['Error Handling', 'Type Safety', 'Performance Optimization', 'Input Validation', 'Template Best Practices'],
+      completed: false
+    },
+    {
+      id: 5,
+      title: 'API Test Generation with Cody',
+      description: 'Generate comprehensive test suites for Express.js APIs using Jest and Supertest with Cody AI, including unit tests, integration tests, and error handling scenarios',
+      difficulty: 'Advanced',
+      topics: ['API Testing', 'Jest', 'Supertest', 'Unit Testing', 'Integration Testing', 'Test Automation'],
+      completed: false
     }
   ];
 

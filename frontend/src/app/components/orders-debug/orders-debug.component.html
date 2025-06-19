@@ -1,0 +1,158 @@
+<div class="orders-debug-container">
+  <div class="orders-header">
+    <div>
+      <h2>Orders Management (Debug Exercise)</h2>
+      <p class="debug-note">
+        🐛 This component contains <strong>5 intentional bugs</strong> for debugging practice with Cody AI:<br>
+        <strong>Error Handling</strong> • <strong>Type Safety</strong> • <strong>Input Validation</strong> • <strong>Template Performance</strong><br>
+        Navigate to exercises to see the specific debugging prompts for each bug.
+      </p>
+    </div>
+    <div class="header-actions">
+      <button (click)="exportToCSV()" class="export-btn">📥 Export CSV</button>
+    </div>
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="search">Search Orders:</label>
+      <input 
+        id="search"
+        type="text" 
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange($event)"
+        placeholder="Search by order ID or status..."
+        class="search-input">
+    </div>
+    
+    <div class="filter-group">
+      <label for="status">Status Filter:</label>
+      <select 
+        id="status"
+        [(ngModel)]="selectedStatus" 
+        (change)="onStatusChange()"
+        class="status-select">
+        <!-- BUG 4: Missing trackBy function can cause performance issues with large lists -->
+        <option *ngFor="let status of statusOptions" [value]="status.value">
+          {{ status.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="sort">Sort By:</label>
+      <select 
+        id="sort"
+        [ngModel]="sortBy + '-' + sortDirection"
+        (change)="onSortChange($event)"
+        class="sort-select">
+        <option value="date-desc">Date (Newest First) ↓</option>
+        <option value="date-asc">Date (Oldest First) ↑</option>
+        <option value="amount-desc">Amount (High to Low) ↓</option>
+        <option value="amount-asc">Amount (Low to High) ↑</option>
+        <option value="status-asc">Status (A-Z) ↑</option>
+        <option value="status-desc">Status (Z-A) ↓</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Loading and Error States -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading orders...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <p>{{ error }}</p>
+    <button (click)="loadOrders()">Retry</button>
+  </div>
+
+  <!-- Orders Table -->
+  <div class="orders-table-container" *ngIf="!loading && !error">
+    <div class="orders-count">
+      <p>Showing {{ filteredOrders.length }} of {{ orders.length }} orders</p>
+    </div>
+    
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Date</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- BUG 4: Missing trackBy function causes performance issues with large lists -->
+        <tr *ngFor="let order of filteredOrders" class="order-row">
+          <td class="order-id">{{ order.orderId }}</td>
+          <td class="order-date">{{ order.orderDate }}</td>
+          <!-- BUG 5: Method calls in templates cause performance issues -->
+          <td class="items-count">{{ getItemsCount(order) }} items</td>
+          <td class="total-amount">{{ order.totalAmount | currency }}</td>
+          <td class="order-status">
+            <select 
+              [value]="order.status"
+              (change)="updateOrderStatus(order.orderId, $event)"
+              class="status-dropdown">
+              <!-- BUG 4: Missing trackBy function can cause performance issues with large lists -->
+              <option *ngFor="let status of statusOptions" 
+                [value]="status.value" 
+                [disabled]="status.value === 'all'">
+                {{ status.label }}
+              </option>
+            </select>
+            <!-- BUG 5: Function call in template for styling -->
+            <span [class]="getStatusBadgeClass(order.status)">{{ order.status }}</span>
+          </td>
+          <td class="actions">
+            <button 
+              (click)="deleteOrder(order.orderId)"
+              class="delete-btn"
+              title="Delete Order">
+              🗑️
+            </button>
+            <button 
+              (click)="viewOrderDetails(order)"
+              class="view-btn"
+              title="View Details">
+              👁️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty State -->
+    <div *ngIf="filteredOrders.length === 0" class="empty-state">
+      <h4>No orders found</h4>
+      <p>Try adjusting your search or filter criteria</p>
+      <button 
+        (click)="searchTerm = ''; selectedStatus = 'all'; filterOrders()"
+        class="reset-btn">
+        Clear Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- Debug Panel -->
+  <div class="debug-panel" *ngIf="true">
+    <h4>🔧 Debug Panel - 5 Bugs to Find</h4>
+    <div class="bug-checklist">
+      <p><strong>Bug 1:</strong> Missing error handling in loadOrders() method</p>
+      <p><strong>Bug 2:</strong> Orders not displayed - filteredOrders never populated</p>
+      <p><strong>Bug 3:</strong> Export button doesn't work - missing click trigger</p>
+      <p><strong>Bug 4:</strong> Change status doesn't work - UI never updates</p>
+      <p><strong>Bug 5:</strong> Status filter doesn't work - always shows all orders</p>
+    </div>
+    <div class="debug-stats">
+      <p>Total Orders: {{ orders.length }}</p>
+      <p>Filtered Orders: {{ filteredOrders.length }}</p>
+      <p>Search Term: "{{ searchTerm }}"</p>
+      <p>Selected Status: {{ selectedStatus }}</p>
+    </div>
+  </div>
+</div>

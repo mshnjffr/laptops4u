@@ -205,6 +205,172 @@
           </div>
         </div>
       </div>
+
+      <!-- Exercise 4: Debugging & Troubleshooting Content -->
+      <div class="exercise-content" *ngIf="exercise.id === 4 && isExpanded(exercise.id)">
+        <div class="description-section">
+          <p>Learn to systematically identify and fix 5 critical frontend bugs that break core functionality using Cody as your debugging assistant. This exercise focuses on:</p>
+          <ul>
+            <li><strong>Error Handling</strong> - Fix missing try-catch blocks for HTTP requests</li>
+            <li><strong>Data Display Issues</strong> - Debug why loaded data doesn't appear in the UI</li>
+            <li><strong>User Interface Bugs</strong> - Fix broken buttons and form interactions</li>
+            <li><strong>Event Handling</strong> - Resolve missing state updates and event processing</li>
+            <li><strong>Filter Logic</strong> - Debug broken filtering that ignores user selections</li>
+          </ul>
+        </div>
+
+        <div class="files-section">
+          <h4>🐛 Files with 5 Strategic Bugs to Debug:</h4>
+          <div class="file-categories">
+            <div class="category">
+              <strong>Buggy Component:</strong>
+              <span class="file-path">frontend/src/app/components/orders-debug/orders-debug.component.ts</span>
+              <span class="file-path">frontend/src/app/components/orders-debug/orders-debug.component.html</span>
+              <span class="file-path">frontend/src/app/components/orders-debug/orders-debug.component.scss</span>
+            </div>
+            <div class="category">
+              <strong>Reference Files:</strong>
+              <span class="file-path">frontend/src/app/models/order.model.ts</span>
+              <span class="file-path">frontend/src/app/services/order.service.ts</span>
+              <span class="file-path">backend/src/routes/orders.js</span>
+            </div>
+          </div>
+          <div class="note">
+            <p><strong>📍 Access the buggy component:</strong> Navigate to <code>http://localhost:4200/orders-debug</code> (not in main navigation)</p>
+            <p><strong>🔍 Bug Summary:</strong> The orders-debug component contains 5 intentional bugs focusing on error handling, type safety, performance, validation, and template optimization.</p>
+          </div>
+        </div>
+
+        <div class="prompts-section">
+          <h4>🤖 Cody Debugging Prompts for 5 Specific Bugs:</h4>
+          <div class="prompt-categories">
+            <div class="prompt-category">
+              <strong>Bug 1 - Error Handling:</strong>
+              <span class="prompt-text">"Analyze the loadOrders() method in frontend/src/app/components/orders-debug/orders-debug.component.ts. Find the missing error handling for the HTTP request and show me how to properly wrap it in try-catch blocks with user-friendly error messages."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Bug 2 - Data Display:</strong>
+              <span class="prompt-text">"The orders-debug component loads data but nothing displays on the page. Review the loadOrders() method in frontend/src/app/components/orders-debug/orders-debug.component.ts around lines 80-95. Find why the orders array gets populated but filteredOrders remains empty, preventing any data from showing in the template."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Bug 3 - Export Functionality:</strong>
+              <span class="prompt-text">"The Export CSV button doesn't work when clicked. Examine the exportToCSV() method in frontend/src/app/components/orders-debug/orders-debug.component.ts. Find the missing step that prevents the download from starting even though the CSV content is generated correctly."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Bug 4 - Status Updates:</strong>
+              <span class="prompt-text">"When users change the status dropdown for an order, the selection resets and the UI doesn't update. Review the updateOrderStatus() method in frontend/src/app/components/orders-debug/orders-debug.component.ts. Find why the status change doesn't persist in the interface."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Bug 5 - Status Filter:</strong>
+              <span class="prompt-text">"The status filter dropdown doesn't work - selecting 'Pending' or other statuses still shows all orders. Examine the filterOrders() method in frontend/src/app/components/orders-debug/orders-debug.component.ts to find why the filter logic is broken."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>Complete Bug Analysis:</strong>
+              <span class="prompt-text">"Systematically review frontend/src/app/components/orders-debug/orders-debug.component.ts to find all 5 bugs: (1) missing error handling in loadOrders, (2) orders not displaying due to missing filteredOrders population, (3) export button not working due to missing click trigger, (4) status updates not persisting in UI, and (5) status filter always showing all orders. Provide fixes for each with explanations."</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testing-section">
+          <h4>✅ Testing Your Bug Fixes:</h4>
+          <div class="testing-categories">
+            <div class="test-category">
+              <strong>Error Handling Testing:</strong>
+              <p>Test the orders loading with network disabled to verify proper error handling and user feedback.</p>
+            </div>
+            <div class="test-category">
+              <strong>Data Display Testing:</strong>
+              <p>Verify that orders appear in the table after loading. Check that filteredOrders gets populated correctly.</p>
+            </div>
+            <div class="test-category">
+              <strong>Export Functionality Testing:</strong>
+              <p>Click the Export CSV button and verify that a file download is triggered with the correct content.</p>
+            </div>
+            <div class="test-category">
+              <strong>Status Update Testing:</strong>
+              <p>Change an order's status using the dropdown and verify the change persists in the UI without reverting.</p>
+            </div>
+            <div class="test-category">
+              <strong>Filter Testing:</strong>
+              <p>Use the status filter dropdown to select different statuses and verify only matching orders are displayed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise 5: Test Generation Content -->
+      <div class="exercise-content" *ngIf="exercise.id === 5 && isExpanded(exercise.id)">
+        <div class="description-section">
+          <p>Master API test generation using Jest and Supertest with Cody AI as your testing assistant. Learn to create comprehensive test suites for Express.js backends including:</p>
+          <ul>
+            <li><strong>Unit Testing</strong> - Generate tests for individual API endpoints with proper assertions</li>
+            <li><strong>Integration Testing</strong> - Create end-to-end workflow tests covering complete user journeys</li>
+            <li><strong>Error Handling Tests</strong> - Generate tests for all error scenarios and edge cases</li>
+            <li><strong>Validation Testing</strong> - Test request validation, data types, and business rules</li>
+            <li><strong>Test Utilities</strong> - Build reusable test helpers and mock data generators</li>
+          </ul>
+        </div>
+
+        <div class="files-section">
+          <h4>🧪 API Endpoints Available for Testing:</h4>
+          <div class="file-categories">
+            <div class="category">
+              <strong>Backend API Routes:</strong>
+              <span class="file-path">backend/src/routes/laptops.js</span>
+              <span class="file-path">backend/src/routes/orders.js</span>
+              <span class="file-path">backend/src/app.js</span>
+            </div>
+            <div class="category">
+              <strong>Models & Data:</strong>
+              <span class="file-path">backend/src/models/laptop.js</span>
+              <span class="file-path">backend/src/models/order.js</span>
+              <span class="file-path">backend/src/data/laptops.json</span>
+            </div>
+            <div class="category">
+              <strong>Test Infrastructure:</strong>
+              <span class="file-path">backend/jest.config.js</span>
+              <span class="file-path">backend/tests/setup.js</span>
+              <span class="file-path">backend/package.json</span>
+            </div>
+          </div>
+          <div class="note">
+            <p><strong>📍 Access the test exercise:</strong> Navigate to <code>http://localhost:4200/test-generation</code> for detailed prompts</p>
+            <p><strong>🔧 Prerequisites:</strong> Jest and Supertest are pre-installed. Run <code>npm test</code> in backend directory.</p>
+          </div>
+        </div>
+
+        <div class="prompts-section">
+          <h4>🤖 Test Generation Prompts for Cody:</h4>
+          <div class="prompt-categories">
+            <div class="prompt-category">
+              <strong>Basic Endpoint Testing:</strong>
+              <span class="prompt-text">"Generate Jest and Supertest tests for GET /api/health, GET /api/laptops, and GET /api/laptops/:id endpoints using backend/src/routes/laptops.js as reference. Include status code assertions, response body validation, and error cases for invalid IDs."</span>
+            </div>
+            <div class="prompt-category">
+              <strong>POST Endpoint Validation:</strong>
+              <span class="prompt-text">"Create comprehensive tests for POST /api/orders endpoint based on backend/src/routes/orders.js. Test valid order creation, missing required fields, invalid quantities, non-existent laptop IDs, and out-of-stock scenarios with proper error responses."</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testing-section">
+          <h4>🚀 Running Your Generated Tests:</h4>
+          <div class="testing-categories">
+            <div class="test-category">
+              <strong>Test Execution:</strong>
+              <p>Run <code>npm test</code> in backend directory to execute all generated tests with coverage reporting.</p>
+            </div>
+            <div class="test-category">
+              <strong>Watch Mode:</strong>
+              <p>Use <code>npm run test:watch</code> for continuous testing during development with automatic re-runs.</p>
+            </div>
+            <div class="test-category">
+              <strong>Coverage Analysis:</strong>
+              <p>Generate coverage reports with <code>npm run test:coverage</code> to identify untested code paths.</p>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <div class="card-actions">
         <button 
